@@ -1,11 +1,12 @@
-import os
+import uuid
 import random
 
 def removeWhitespace(string: str) -> str:
     return string.strip().capitalize()
 
 def GetName() -> str:
-        adjectives = open("names\\adjectives.txt", 'r')
+    try:
+        adjectives = open("names\\adjectivses.txt", 'r')
         nouns = open("names\\words.txt", 'r')
 
         adjectiveList = adjectives.readlines()
@@ -18,4 +19,8 @@ def GetName() -> str:
         nouns =  random.sample(nounList, 3)
 
         return adjective+nouns[0]+nouns[1]+nouns[2]
+    except FileNotFoundError:
+        print("No se encontraron los archivos con nombres, se utilizarán GUIDs")
+        return str(uuid.uuid4())
+
 

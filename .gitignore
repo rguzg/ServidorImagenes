@@ -5,3 +5,6 @@
 # Imagenes
 *.jpg
 !Gato.jpg
+
+# Otros
+__pycache__

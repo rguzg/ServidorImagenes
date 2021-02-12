@@ -1,4 +1,5 @@
 from socket import socket, error
+from names.words import GetName
 
 def main():
     print("El servidor esta listo")
@@ -12,7 +13,7 @@ def main():
 
         # Crea un socket (conn) que acepta nuevas conexiones. Se mantiene esperando hasta que se reciba una conexión
         conn, addr = s.accept()
-        f = open("recibido.jpg", "wb")
+        f = open(f"{GetName()}.jpg", "wb")
         print(f'Conexión de {addr[0]}:{addr[1]}')
 
         while True:
