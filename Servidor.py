@@ -1,45 +1,32 @@
 from socket import socket, error
 
 def main():
+    print("El servidor esta listo")
+
+    # Este ciclo mantiene al servidor corriendo indefinidamente, esperando nuevas conexiones hasta que se detenga manualmente
     while True:
         s = socket()
 
         s.bind(("localhost", 6030))
         s.listen(0)
 
-        print("El servidor esta listo")
-
+        # Crea un socket (conn) que acepta nuevas conexiones. Se mantiene esperando hasta que se reciba una conexión
         conn, addr = s.accept()
         f = open("recibido.jpg", "wb")
+        print(f'Conexión de {addr[0]}:{addr[1]}')
 
-
-# Cambiar esto por algo que tenga más forma: https://docs.python.org/3/library/socket.html#example
         while True:
-            try:
-                # Recibir datos del cliente.
-                input_data = conn.recv(1024)
-            except error:
-                print("Error de lectura.")
+            # Después de recibir una conexión, se leen los datos almacenados en el buffer del socket
+            data = conn.recv(1024)
+            # Cuando el buffer se vacia, se cierra el archivo y se sale del ciclo.
+            # El cierre de la conexión se realiza del lado del cliente
+            if not data:
+                print("Imagen guardada")    
+                f.close()
                 break
-
-            if input_data:
-                # Mover esto a otro lado para que el archivo no se corrompa (Implementar lo de nombres aleatorios?)
-                # Compatibilidad con Python 3.
-                if isinstance(input_data, bytes):
-                    end = input_data[0] == 1
-                else:
-                    end = input_data == chr(1)
-                if not end:
-                    # Almacenar datos.
-                    f.write(input_data)
-                else:
-                    print("Imagen guardada")
-                    f.close()
-                    break
             else:
-                print("Imagen guardada")
-                break
-
+                f.write(data) 
+        
 
 if __name__ == "__main__":
     main()
