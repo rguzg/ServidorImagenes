@@ -2,7 +2,7 @@ from socket import socket, error
 from names.words import GetName
 
 def main():
-    print("El servidor esta listo")
+    print("El servidor está listo")
 
     # Este ciclo mantiene al servidor corriendo indefinidamente, esperando nuevas conexiones hasta que se detenga manualmente
     while True:
@@ -13,7 +13,7 @@ def main():
 
         # Crea un socket (conn) que acepta nuevas conexiones. Se mantiene esperando hasta que se reciba una conexión
         conn, addr = s.accept()
-        f = open(f"{GetName()}.jpg", "wb")
+        f = open(f"ImagenesRecibidas\\{GetName()}.jpg", "wb")
         print(f'Conexión de {addr[0]}:{addr[1]}')
 
         while True:
