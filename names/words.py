@@ -6,16 +6,20 @@ def removeWhitespace(string: str) -> str:
 
 def GetName() -> str:
     try:
-        adjectives = open("names\\adjectivses.txt", 'r')
-        nouns = open("names\\words.txt", 'r')
+        adjectivesFile = open("names\\adjectives.txt", 'r')
+        nounsFile = open("names\\words.txt", 'r')
 
-        adjectiveList = adjectives.readlines()
+        adjectiveList = adjectivesFile.readlines()
         adjectiveList = list(map(removeWhitespace, adjectiveList))
 
-        nounList = nouns.readlines()
+        nounList = nounsFile.readlines()
         nounList = list(map(removeWhitespace, nounList))
 
+        adjectivesFile.close()
+        nounsFile.close()
+
         adjective = random.choice(adjectiveList)
+        
         nouns =  random.sample(nounList, 3)
 
         return adjective+nouns[0]+nouns[1]+nouns[2]
