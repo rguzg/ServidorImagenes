@@ -3,7 +3,10 @@ import random
 
 def removeWhitespace(string: str) -> str:
     return string.strip().capitalize()
-
+    
+# Esta función lee un archivo con una lista de adjetivos y otro con una lista de de sustantivos, después elige
+# un adjetivo y tres sustantivos al azar y los retorna en formato de string. Si los archivos no se encuentran
+# se retorna un GUID
 def GetName() -> str:
     try:
         adjectivesFile = open("names\\adjectives.txt", 'r')
