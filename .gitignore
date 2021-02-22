@@ -1,2 +1,10 @@
 # Visual Studio Code
 *.code-workspace
+/.vscode
+
+# Imagenes
+*.jpg
+!Gato.jpg
+
+# Otros
+__pycache__
