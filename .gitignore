@@ -4,6 +4,7 @@
 
 # Imagenes
 *.jpg
+*.png
 !Gato.jpg
 
 # Otros
