@@ -25,9 +25,18 @@ def CompararImagen(img1,img2):
         
         #Se utiliza la funcion countNonZero para contar la cantidades de pixeles que no son negros
 
-        if(cv2.countNonZero(b)==0 and cv2.countNonZero(g)==0 and cv2.countNonZero(r)==0):
+        if(cv2.countNonZero(b)<100000 and cv2.countNonZero(g)<100000 and cv2.countNonZero(r)<100000):
             print(" EXITO Las imagenes Son iguales")
+            cv2.imshow("Original",Original)
+            cv2.imshow("Recibida por el Servidor",Nueva)
+            cv2.imshow("differencias",difference)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
         else:
+            
+            print(cv2.countNonZero(b))
+            print(cv2.countNonZero(g))
+            print(cv2.countNonZero(r))
             print("ERROR las imagenes no son iguales")
             cv2.imshow("Original",Original)
             cv2.imshow("Recibida por el Servidor",Nueva)
