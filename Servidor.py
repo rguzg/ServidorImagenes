@@ -1,5 +1,6 @@
-from socket import socket, error
+from socket import socket
 from names.words import GetName
+from Encriptar import Desencriptar
 
 def main():
     print("El servidor está listo")
@@ -13,7 +14,9 @@ def main():
 
         # Crea un socket (conn) que acepta nuevas conexiones. Se mantiene esperando hasta que se reciba una conexión
         conn, addr = s.accept()
-        f = open(f"ImagenesRecibidas\\{GetName()}.jpg", "wb")
+
+        filename = GetName()
+        f = open(f"ImagenesRecibidas\\{filename}.png", "wb")
         print(f'Conexión de {addr[0]}:{addr[1]}')
 
         while True:
@@ -22,12 +25,15 @@ def main():
             # Cuando el buffer se vacia, se cierra el archivo y se sale del ciclo.
             # El cierre de la conexión se realiza del lado del cliente
             if not data:
-                print("Imagen guardada")    
                 f.close()
+
+                print(f"Imagen guardada como ImagenesRecibidas\\{filename}.png")    
                 break
             else:
-                f.write(data) 
-        
+                data = Desencriptar(data).to_bytes(1, 'big')
+
+                f.write(data)
+                conn.send(data)
 
 if __name__ == "__main__":
     main()
