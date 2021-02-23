@@ -1,32 +1,27 @@
 from socket import socket
+from Encriptar import Encriptar
+from ChecarImagenesFinal import ChecarImagen
+
+ARCHIVO = "Gato.jpg"
 
 def main():
     s = socket()
     s.connect(("localhost", 6030))
 
-    while True:
-        f = open("archivo.png", "rb")
-        content = f.read(1024)
+    # Encriptar imagen. Este método retorno un bytearray de la imagen encriptada
+    archivo_encriptado = Encriptar(ARCHIVO)
+    resultado = open('Resultado.png', 'wb')
 
-        while content:
-            # Se manda el contenido
-            s.send(content)
-            content = f.read(1024)
+    for byte in archivo_encriptado:
+        # Se manda el contenido
+        # Cada elemento de archivo_encriptado es un entero, así que se convierte el entero a bytes
+        s.send(byte.to_bytes(1, 'big'))
+        
+        resultado.write(s.recv(1024))
 
-        break
-    # Se utiliza el caracter de codigo 1 para indicar
-    # al cliente que ya se ha enviado todo el contenido.
-    try:
-        s.send(chr(1))
-    except TypeError:
-        # Compatibilidad con Python 3.
-        s.send(bytes(chr(1), "utf-8"))
-
-    # Cerrar conexion y archivo.
     s.close()
-    f.close()
-    print("El archivo ha sido enviado correctamente.")
 
+    ChecarImagen.CompararImagen(ARCHIVO, 'resultado.png')
 
 if __name__ == "__main__":
     main()
