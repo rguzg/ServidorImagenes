@@ -22,11 +22,8 @@ def Encriptar(img):
         for indice, valores in enumerate(imagen):
             imagen[indice] = valores ^ key
 
-        # Abrir archivo para escribir encriptación
-        archivo = open(path, 'wb')
-        archivo.write(imagen)
-        archivo.close()
         print("Imagen Encriptada")
+        return imagen
 
     except Exception:
         print("Error: ", Exception.__name__)
@@ -34,30 +31,7 @@ def Encriptar(img):
 
 # Desencriptación
 # Para desencriptar la imagen se necesita ingresar la misma llave como clave
-def Desencriptar(img):
-    try:
-        # Ingresar ruta de la imagen a desencriptar
-        path = img
+def Desencriptar(byte):
+    key = 70
 
-        key = 70
-
-        # Abrir el archivo para leer
-        archivo = open(path, 'rb')
-        imagen = archivo.read()
-        archivo.close()
-
-        # Desencriptación
-        imagen = bytearray(imagen)
-
-        # Operación XOR
-        for indice, valores in enumerate(imagen):
-            imagen[indice] = valores ^ key
-
-        # Abrir archivo para escribir desencriptación
-        archivo = open(path, 'wb')
-        archivo.write(imagen)
-        archivo.close()
-        print("Imagen Desencriptada")
-
-    except Exception:
-        print("Error: ", Exception.__name__)
+    return int.from_bytes(byte, 'big') ^ key
