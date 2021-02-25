@@ -1,6 +1,7 @@
 from socket import socket
 from Encriptar import Encriptar
 from ChecarImagenesFinal import ChecarImagen
+from ComparaciónBytes import ComparacionBytes
 
 ARCHIVO = "Gato.jpg"
 
@@ -21,7 +22,15 @@ def main():
 
     s.close()
 
-    ChecarImagen.CompararImagen(ARCHIVO, 'resultado.png')
+    iguales, diferencias = ComparacionBytes(ARCHIVO, 'Resultado.png')
+
+    if(iguales):
+        print("Las imagenes son iguales")
+    else:
+        print("Las imagenes no son iguales")
+        print("Diferencias: ")
+        print(diferencias)
+        
 
 if __name__ == "__main__":
     main()
